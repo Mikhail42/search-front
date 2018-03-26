@@ -1,15 +1,18 @@
-@(articles: Seq[TextDocument])(implicit request: MessagesRequestHeader)
+@(question: String, articles: Seq[TextDocument])(implicit request: MessagesRequestHeader)
 
-@main("Заменить титул на запрос") {
+@main(question) {
 
 <main role="main" class="container">
-    <h1>Заменить титул на запрос</h1>
+    <h1>@question</h1>
+
     <div class="my-3 p-3 bg-white rounded box-shadow">
         @articles.map { r =>
         <div class="media ">
             <p class="media-body pb-3 mb-0 border-bottom border-gray">
                 <strong class="d-block text-gray-dark">
-                    <a href="https://ru.wikipedia.org/wiki/@r.title">@r.title</a>
+                    <font size="5">
+                        <a href="https://ru.wikipedia.org/wiki/@r.title">@r.title</a>
+                    </font>
                 </strong>
                 @r.content
             </p>
