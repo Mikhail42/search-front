@@ -11,7 +11,7 @@ import play.api.mvc._
 class SearchController @Inject()(cc: MessagesControllerComponents) extends MessagesAbstractController(cc) {
   val log = LoggerFactory.getLogger(this.getClass)
 
-  private val articles = scala.collection.mutable.ArrayBuffer(
+  private def articles(query: String) = scala.collection.mutable.ArrayBuffer(
     new TextDocument("Вики",
       """Ви́ки (англ. wiki) — веб-сайт, содержимое которого пользователи могут самостоятельно
         | изменять с помощью инструментов, предоставляемых самим сайтом. Форматирование текста и вставка различных
@@ -40,9 +40,9 @@ class SearchController @Inject()(cc: MessagesControllerComponents) extends Messa
 
     val successFunction = { data: Data =>
       log.debug("search success")
-      val question = data.searchRequest
-      val form = SearchForm.form.fill(new Data(question))//.bind(Map("query" -> question))
-      Ok(views.html.index(question, articles, form, postUrl))
+      val query = data.searchRequest
+      val form = SearchForm.form.fill(new Data(query))//.bind(Map("query" -> question))
+      Ok(views.html.index(query, articles(query), form, postUrl))
     }
 
     log.debug("search before valid")
