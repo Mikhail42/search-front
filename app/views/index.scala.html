@@ -1,23 +1,44 @@
-@(question: String, articles: Seq[TextDocument])(implicit request: MessagesRequestHeader)
+@(query: String, articles: Seq[TextDocument], searchForm: Form[SearchForm.Data], postUrl: Call)(implicit request: MessagesRequestHeader)
 
-@main(question) {
+@main(query) {
 
 <main role="main" class="container">
-    <h1>@question</h1>
+    <div class="w-60 p-3 bg-white rounded box-shadow">
+        <form method="GET" action="/search">
+            <input type="text" size="85%"
+                   id="@{searchForm(" query").id}"
+            name="@{searchForm("query").label}"
+            value="@{searchForm("query").value}">
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
 
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="container-fluid">
         @articles.map { r =>
-        <div class="media ">
-            <p class="media-body pb-3 mb-0 border-bottom border-gray">
-                <strong class="d-block text-gray-dark">
-                    <font size="5">
-                        <a href="https://ru.wikipedia.org/wiki/@r.title">@r.title</a>
+        <div class="row">
+            <div class="col-lg-7">
+                <p class="media-body pb-3 mb-0 border-bottom border-gray">
+                    <strong class="d-block text-gray-dark">
+                        <font size="4">
+                            <a href="https://ru.wikipedia.org/wiki/@r.title">@r.title</a>
+                        </font>
+                    </strong>
+                    <font size="2">
+                        @r.content
                     </font>
-                </strong>
-                @r.content
-            </p>
+                </p>
+            </div>
         </div>
         }
     </div>
+
+    @* Global errors are not tied to any particular form field *@
+    @if(searchForm.hasGlobalErrors) {
+    @searchForm.globalErrors.map { error: FormError =>
+    <div>
+        @error.key: @error.message
+    </div>
+    }
+    }
 </main>
 }

@@ -8,7 +8,7 @@ object SearchForm {
 
   val form = Form(
     mapping(
-      "searchRequest" -> nonEmptyText
+      "query" -> nonEmptyText
     )(Data.apply)(Data.unapply)
   )
 }

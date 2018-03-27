@@ -1,0 +1,22 @@
+@(form: Form[SearchForm.Data], postUrl: Call)(implicit request: MessagesRequestHeader)
+
+@main("Wiki поиск") {
+
+<main role="main" class="container">
+    <h1>Wiki поиск</h1>
+    @helper.form(postUrl) {
+    @helper.CSRF.formField
+    @helper.inputText(form("query"))
+    <button>Поиск</button>
+    }
+
+    @* Global errors are not tied to any particular form field *@
+    @if(form.hasGlobalErrors) {
+    @form.globalErrors.map { error: FormError =>
+    <div>
+        @error.key: @error.message
+    </div>
+    }
+    }
+</main>
+}
