@@ -4,7 +4,7 @@
 
 # Home page
 GET      /                          controllers.SearchController.start
-GET      /search                    controllers.SearchController.index
+GET      /search                    controllers.SearchController.indexWithPage(query: String, page: Option[Int])
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

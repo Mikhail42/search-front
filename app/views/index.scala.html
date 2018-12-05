@@ -1,4 +1,4 @@
-@(query: String, articles: Seq[TextDocument], searchForm: Form[SearchForm.Data], postUrl: Call)(implicit request: MessagesRequestHeader)
+@(query: String, page: Int, articles: List[(Int, String, String)], searchForm: Form[SearchForm.Data])(implicit request: MessagesRequestHeader)
 
 @main(query) {
 
@@ -6,26 +6,26 @@
     <div class="w-60 p-3 bg-white rounded box-shadow">
         <form method="GET" action="/search">
             <input type="text" size="85%"
-                   id="@{searchForm(" query").id}"
-            name="@{searchForm("query").label}"
-            value="@{searchForm("query").value}">
+                   id='@{searchForm("query").id}'
+                   name='@{searchForm("query").label}'
+                   value='@{searchForm("query").value}'>
             <button type="submit">Поиск</button>
         </form>
     </div>
 
     <div class="container-fluid">
-        @articles.map { r =>
+        @articles.map { case (id, title, snippet) =>
         <div class="row">
             <div class="col-lg-7">
                 <p class="media-body pb-3 mb-0 border-bottom border-gray">
                     <strong class="d-block text-gray-dark">
                         <font size="4">
-                            <a href="https://ru.wikipedia.org/wiki/@r.title">@r.title</a>
+                            <a href="https://ru.wikipedia.org/?curid=@id">@title</a>
                         </font>
                     </strong>
-                    <font size="2">
-                        @r.content
-                    </font>
+                </p>
+                <p>
+                    @Html(snippet)
                 </p>
             </div>
         </div>
@@ -39,6 +39,13 @@
         @error.key: @error.message
     </div>
     }
+    }
+    @if(articles.size == 50) {
+        <form method="get" action="search">
+            <input type="hidden" name="query" value="@{query}" />
+            <input type="hidden" name="page" value="@{page+1}" />
+            <button type="submit">Следующие 50</button>
+        </form>
     }
 </main>
 }

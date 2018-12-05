@@ -4,7 +4,17 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+      <charset>UTF-8</charset>
+      <pattern>%date{HH:mm:ss.SSS} %coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>logs/search.log</file>
+    <append>false</append>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -14,7 +24,7 @@
   <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
 
   <root level="debug">
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
   </root>
 
 </configuration>

@@ -6,7 +6,7 @@ object SearchForm {
 
   case class Data(searchRequest: String)
 
-  val form = Form(
+  val form: Form[Data] = Form[Data](
     mapping(
       "query" -> nonEmptyText
     )(Data.apply)(Data.unapply)
