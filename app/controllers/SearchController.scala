@@ -40,10 +40,10 @@ class SearchController @Inject()(cc: MessagesControllerComponents) extends Messa
   }
 
   private def links(query: String, page: Int): List[QueryPage] = {
-    import scala.collection.JavaConverters._
+    import scala.jdk.CollectionConverters._
     log.debug("try evaluate '{}'", query)
-    val idsJava = evaluator.evaluate(query, 50 * page)
-    val ids = idsJava.asScala.toList.map(_.getValue)
+    val idsJava = evaluator.evaluate(query, linksOnPage * page)
+    val ids = idsJava.asScala.toList.map(_.value)
     log.debug("ids.take(10) '{}'...", ids.take(10))
     ids.slice((page - 1) * linksOnPage, page * linksOnPage)
   }

@@ -1,22 +1,5 @@
-# general
-*~
-*.log
-tmp
-dump
-.cache
-
-# intellij
-.idea/
-
-# SBT
-dist
-project/boot
-project/project
-project/target
-project/plugins/target
+.idea
+.bsp
 target
-.target
-
-# Play
 logs
 RUNNING_PID
