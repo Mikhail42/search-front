@@ -10,6 +10,8 @@ scalacOptions ++= Seq("-deprecation")
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += "Local Maven Repository" at "file:///" + Path.userHome + "/.m2/repository"
 
+javaOptions += "-Xmx5G"
+
 // you need to "install" (mvn install) search-back before it will be available here
 lazy val searchBack = Seq(
   "org.ionkin" % "core" % "1.3-SNAPSHOT",
