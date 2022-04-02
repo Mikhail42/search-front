@@ -1,28 +1,29 @@
 package controllers
 
 import controllers.SearchForm.Data
-import javax.inject.Inject
 import org.ionkin.search.{EvaluatorPerformance, QueryPage}
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.mvc._
 
+import javax.inject.Inject
 import scala.util.{Failure, Success, Try}
+
 // TODO: оценка
 object SearchController {
-  val log = LoggerFactory.getLogger(SearchController.getClass)
-  lazy val evaluator: EvaluatorPerformance = EvaluatorPerformance.loadTest()
+  val log: Logger = LoggerFactory.getLogger(SearchController.getClass)
+  lazy val evaluator: EvaluatorPerformance = EvaluatorPerformance.load()
   val linksOnPage = 50
 }
 
 class SearchController @Inject()(cc: MessagesControllerComponents) extends MessagesAbstractController(cc) {
   import SearchController._
 
-  def start = Action { implicit request: MessagesRequest[AnyContent] =>
+  def start: Action[AnyContent] = Action { implicit request: MessagesRequest[AnyContent] =>
     Ok(views.html.start(SearchForm.form))
   }
 
   // TODO: J-pop word with -
-  def indexWithPage(query: String, page: Option[Int]) = Action { implicit request: MessagesRequest[AnyContent] =>
+  def indexWithPage(query: String, page: Option[Int]): Action[AnyContent] = Action { implicit request: MessagesRequest[AnyContent] =>
     log.debug("search success")
     log.info("query: {}", query)
     val form = SearchForm.form.fill(new Data(query))
