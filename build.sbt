@@ -23,8 +23,8 @@ libraryDependencies += guice
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin)
 
-javaOptions in Universal ++= Seq(
-  "-J-Xmx5024m",
-  "-J-Xms1024m"
+Universal / javaOptions ++= Seq(
+  "-J-Xmx6024m",
+  "-J-Xms2024m"
 )
 
