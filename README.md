@@ -2,6 +2,9 @@
 Search-front is UI component for Wikipedia [search engine](https://github.com/Mikhail42/search-back).
 This one specified for Russian Wikipedia, but you can change some settings and specify it for another language.
 
+Example:
+![wiki](wiki.png)
+
 ## Pre-requirement
 See this section here: [search-back](https://github.com/Mikhail42/search-back)
 - about 6 GB RAM
